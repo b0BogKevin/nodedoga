@@ -31,16 +31,21 @@ router.post("/users",(req,res)=>{
         name:req.name
     }
     users.push(newUser)
+    res.send(newUser)
     res.status(201)
 
 })
 router.delete("/users/:id",(req,res)=>{
     let id = (req.params.id)
 
-    users.find(x=>x.id ==id).delete()
+    let index = users.find(x=>x.id ==id)
+
+    users.splice(index,1)
+    res.send("törölve")
     
     res.status(204)
 })
+
 router.patch("/users/:id",(req,res)=>{
     let id = (req.params.id)
 
@@ -48,6 +53,8 @@ router.patch("/users/:id",(req,res)=>{
         id:id,
         name:req.name
     }
+    
+    res.send(newUser)
 
     users.find(x=>x.id ==id) = newUser
     res.status(200)
