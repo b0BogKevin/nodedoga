@@ -4,9 +4,13 @@ import nodejsRoute from "./routes/nodejsRoute.js"
 import greetingRoute from "./routes/greetingRoute.js"
 import homeRoute from "./routes/homeRoute.js"
 import apiRoutes from "./routes/apiroutes.js"
+import bodyParser from "body-parser"
+
 const app = express()
 
 const port = 3000;
+
+app.use(bodyParser.urlencoded({extended: false}))
 
 app.use("/",homeRoute)
 app.use("/express",expressRoute)

@@ -1,4 +1,8 @@
 import express from "express";
+import  path  from "path";
+import  rootpath  from "../util/rootpath.js";
+import { url } from "inspector";
+
 
 const router = express.Router()
 let users = [
@@ -6,18 +10,48 @@ let users = [
     { id: "2", name: "Jane Smith" },
     { id: "3", name: "Sam Johnson" },
   ];
-  let allusers = ""
-  users.forEach(user => {
-    allusers +=(user.id + " " + user.name + "<br>")
-});
+
+
 router.get("/users",(req,res)=>{
-    res.send(allusers)
+    res.send(users)
+    res.status(200)
     
 })
 
-router.get("/users:",(req,res)=>{
-    res.send(users)
+router.get("/users/:id",(req,res)=>{
+    let id = (req.params.id)
+    res.send(users.find(x=>x.id ==id))
+    res.status(200)
     
+})
+
+router.post("/users",(req,res)=>{
+    let newUser = {
+        id:req.id,
+        name:req.name
+    }
+    users.push(newUser)
+    res.status(201)
+
+})
+router.delete("/users/:id",(req,res)=>{
+    let id = (req.params.id)
+
+    users.find(x=>x.id ==id).delete()
+    
+    res.status(204)
+})
+router.patch("/users/:id",(req,res)=>{
+    let id = (req.params.id)
+
+    let newUser = {
+        id:id,
+        name:req.name
+    }
+
+    users.find(x=>x.id ==id) = newUser
+    res.status(200)
+
 })
 
 export default router
