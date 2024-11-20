@@ -38,7 +38,7 @@ router.post("/users",(req,res)=>{
 router.delete("/users/:id",(req,res)=>{
     let id = (req.params.id)
 
-    let index = users.find(x=>x.id ==id)
+    let index = users.indexOf( users.find(x=>x.id ==id))
 
     users.splice(index,1)
     res.send("törölve")
@@ -53,7 +53,7 @@ router.patch("/users/:id",(req,res)=>{
         id:id,
         name:req.name
     }
-    
+
     res.send(newUser)
 
     users.find(x=>x.id ==id) = newUser
